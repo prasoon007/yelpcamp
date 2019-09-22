@@ -57,7 +57,7 @@ passport.use(new localStrategy(User.authenticate()));
 
 
 //SERVER CODE
-app.listen(port.env.PORT, () => {
+app.listen(process.env.PORT, () => {
 	console.log("YELPCAMP SERVER STARTED!!!")
 });
 
