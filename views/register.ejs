@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+
+<form id="wow2" class="ui form container ui main ui center aligned text container segment" action="/register" method="POST">
+	<h2>Sign Up!</h2>
+  <div class="field">
+    <label>Username</label>
+    <input type="text" name="username" placeholder="username">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="password">
+  </div>
+  <div class="field">
+  </div>
+  <div class="ui vertical buttons">
+  	  <button class="ui inverted green button" type="submit">Sign Up</button>
+  	  <a href="/register" id="wow" class="ui inverted green button">Already Registered, Then Login</a>
+  </div>
+</form>
+
+<% include ./partials/footer %>

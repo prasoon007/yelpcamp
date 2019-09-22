@@ -1,0 +1,57 @@
+<%include ../partials/header %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="lead">Yelpcamp</div>
+			<div class="list-group">
+				<li class="list-group-item active">Info 1</li>
+				<li class="list-group-item">Info 2</li>
+				<li class="list-group-item">Info 3</li>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%= camp.image %>">
+				<div class="caption-full">
+					<h4 class="pull-right">$<%= camp.price %>/Night</h4>
+					<h4><b><%= camp.name %></b></h4>
+					<p><%= camp.description %></p>
+					<p><b>post by:-</b> <em><%= camp.author.username %></em></p>
+					<% if(currentUser && camp.author.id.equals(currentUser._id)) { %>
+						<a class="btn btn-info" href="/campgrounds/<%= camp._id %>/edit">EDIT CAMP</a>
+						<form class ="deleteForm" action="/campgrounds/<%= camp.
+							_id %>?_method=DELETE" method="POST">
+							<button class="btn btn-danger">DELETE CAMP</button>
+						</form>
+					<% } %>
+				</div>
+			</div>
+			<div class="well">
+				<div class="text-right">
+					<a href="/campgrounds/<%= camp.id %>/comments/new" class="btn btn-success">Add New Comment</a>
+				</div>
+				<hr>
+				<% camp.comments.forEach((comments) => { %>
+				<div class="row">
+					<div class="col-md-12">
+						<strong><%= comments.author.username %></strong>
+						<span class="pull-right">10 Days Ago</span>
+						<p>
+							<%= comments.text %>
+						</p>
+						<% if(currentUser && comments.author.id.equals(currentUser._id)) { %>
+							<a class="btn btn-warning btn-xs" href="/campgrounds/<%= camp.id %>/comments/<%= comments._id %>/edit">EDIT</a>
+							<form class = "deleteForm" action="/campgrounds/<%= camp.id %>/comments/<%= comments._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-danger btn-xs">DELETE</button>
+							</form>
+						<% } %>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%include ../partials/footer %>
