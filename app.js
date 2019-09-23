@@ -33,7 +33,10 @@ app.use(express.static('public'));
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(flash());
-mongoose.connect('mongodb://localhost/yelpDeploy', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost/yelpDeploy', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://prasoon:sheshank@7275@yelpcamp-bc5nv.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+
+
 // seedDb();
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
@@ -56,8 +59,8 @@ passport.deserializeUser(User.deserializeUser());
 passport.use(new localStrategy(User.authenticate()));
 
 
-//SERVER CODE
-app.listen(process.env.PORT, () => {
+//SERVER
+app.listen(3000, () => {
 	console.log("YELPCAMP SERVER STARTED!!!")
 });
 
