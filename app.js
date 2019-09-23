@@ -10,10 +10,12 @@ const express 		              = require('express'),
 	  passport 		              = require('passport'),
 	  passportLocal		          = require('passport-local'),
 	  User 						  = require('./models/user'),
-	  passportLocalMongoose	  	  = require('passport-local-mongoose');
-	  localStrategy 			  = require('passport-local').Strategy;
+	  passportLocalMongoose	  	  = require('passport-local-mongoose'),
+	  localStrategy 			  = require('passport-local').Strategy,
 	  methodOverride 			  = require('method-override'),
-	  flash						  = require('connect-flash');
+	  flash						  = require('connect-flash'),
+	  session 					  = require("express-session"),
+      MongoStore 				  = require("connect-mongo")(session);
 
 	  var campgroundsRoutes		  = require('./routes/campgrounds'),
 	  	  commentsRoutes		  = require('./routes/comments'),
@@ -23,9 +25,11 @@ const express 		              = require('express'),
 
 //formalities
 app.use(session({
-	secret: 'I am going to be a rich person',
-	resave: false,
-	saveUninitialized: false
+    secret: "Once again Rusty wins cutest dog!",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { maxAge: 180 * 60 * 1000 } // 180 minutes session expiration
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,7 +38,7 @@ app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(flash());
 // mongoose.connect('mongodb://localhost/yelpDeploy', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://mental:GGhmnvaiyxq8N8u6@yelpcamp-bc5nv.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://mental:fKrAOesFTVuAYnI5@yelpcamp-bc5nv.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 
 // seedDb();
